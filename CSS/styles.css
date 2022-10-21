@@ -2,9 +2,49 @@
 
 img{
 	height:150px;
-	width:150px;
+	width:100px;
 	}
 	
-table{
-	border:5px;
+.Expense{
+	border:2px solid;
+	
 	}
+	
+body{
+	background-color:#97D2EC;
+	margin:0;
+	}
+	
+h1{
+	color:#FEF5AC;
+	margin:0;
+	}
+h3{
+	color:#FEF5AC;
+	}
+hr {
+	
+	border-style:dotted none none ;
+	width:10%;
+	border-width:5px;
+	border-color:gray;
+	
+	}
+div {
+	background-color:#25316D;
+	
+	}
+	
+.box{
+	height:100px;
+	width:100px;
+	border:solid 10px;
+	background-color:red;
+}
+.box1{
+	height:100px;
+	width:100px;
+	border:solid 10px;
+	background-color:blue;
+	padding:10px;
+	margin-left:120px;
