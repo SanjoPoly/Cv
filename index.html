@@ -3,24 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanjo Poly</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Sanjo Poly - D365 Finance Functional Consultant</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    <div class="headerNav">
-        
-        <div class="navbar">
-           <a href="#contact">Contact me</a>
-        </div>
-    </div>
 
-    
-    <div class="content">
-        <div>
-                <img src="Images/My Portfolio1.png" alt="Sanjo" >
-        </div>
-      
+    <header id="main-header">
+        <nav class="container">
+            <a href="#hero" class="logo">Sanjo Poly</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li> <li><a href="#skills">Skills</a></li>
+                <!--<li><a href="#projects">Projects</a></li>-->
+                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger-button" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Sanjo Poly</h1>
+                    <h2>Microsoft D365 Finance and Operation <br>- Functional Consultant </h2>
+                
+                    <p class="hero-about" id="about">
+                        a passionate consultant specializing in leveraging the Microsoft ecosystem – including Dynamics 365 ERP, Power Apps, Fabric, Azure, and Copilot – 
+                        alongside robust SQL skills. 
+                        My focus is on helping businesses optimize critical financial and operational processes, transforming technology into a powerful engine for growth
+                    </p>
+                    <div class="social-links">
+                        <a href="www.linkedin.com/in/sanjopoly" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:j.sanjopoly@gmail.com" aria-label="Email Me"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <a href="#contact" class="cta-button hero-button">Get In Touch</a>
+                </div>
+                <div class="hero-image-container">
+                    <img src="sanjo.png" alt="Sanjo Poly - Professional Photo" class="hero-image">
+                     <div class="hero-bg-graphics"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section-bg">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i class="fas fa-cogs skill-icon"></i>
+                        <h3>Functional Expertise</h3>
+                        <ul>
+                            <li>D365 ERP Modules</li>
+                            <li>Requirement Gathering & Analysis</li>
+                            <li>Process Design & Optimization</li>
+                            <li>User Training & Support</li>
+                            <li>System Configuration</li>
+                        </ul>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 90%;">90%</div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-code skill-icon"></i>
+                        <h3>Technical Acumen</h3>
+                         <ul>
+                            <li>Data Migration (DMF)</li>
+                            <li>Managment Reporter</li>
+                            <li>Power Bi Report Development</li>
+                            <li>Electronic reporter</li>
+                            <li>LCS Environment Management</li>
+                            <li>Integration Concepts</li>
+                        </ul>
+                         <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;">85%</div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-users skill-icon"></i>
+                        <h3>Professional Skills</h3>
+                        <ul>
+                            <li>Project Management</li>
+                            <li>Client Communication</li>
+                            <li>Problem Solving</li>
+                            <li>Team Collaboration</li>
+                            <li>Adaptability</li>
+                        </ul>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 95%;">95%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blogs">
+            <div class="container">
+                <h2>Latest Blogs</h2>
+                <div class="blog-grid">
+                    <div class="card blog-card">
+                        <img src="UAE VAT.png" alt="Blog Post 1 Image">
+                        <div class="card-content">
+                            <h3>UAE VAT Report Configuration In D365 F&O</h3>
+                            <p class="blog-date">October 5, 2024</p>
+                            <p>Value-added tax (VAT) was introduced in the United Arab Emirates (UAE) on January 1, 2018.
+                                 Businesses in the UAE are responsible for carefully documenting their business income, costs, and associated VAT charges...</p>
+                            <a href="https://www.linkedin.com/pulse/uae-vat-report-configuration-d365-fo-sanjo-poly-ptgof/?trackingId=gjT%2F3DJsRPisculHi8DhqA%3D%3D" class="text-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                     <div class="card blog-card">
+                        <img src="graph.jpg" alt="Blog Post 2 Image">
+                         <div class="card-content">
+                            <h3>Email Configuration in D365 F&O using Microsoft Graph</h3>
+                            <p class="blog-date">September 11, 2024</p>
+                            <p>This guide outlines the essential steps to configure email sending in Dynamics 365 Finance & Operations (D365 F&O) using the Microsoft Graph API. 
+                                Integrating with Microsoft Graph offers a modern and robust method for handling email communications directly from your D365 environment....</p>
+                             <a href="https://www.linkedin.com/pulse/email-configuration-d365-fo-using-microsoft-graph-sanjo-poly-gdvmf/?trackingId=Sc%2B%2FDED4SJWO56hbrQSDjA%3D%3D" class="text-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                     <div class="card blog-card">
+                        <img src="Financila tags.png" alt="Blog Post 3 Image">
+                        <div class="card-content">
+                            <h3>Financial Tags</h3>
+                            <p class="blog-date">July 1, 2024</p>
+                            <p>In addition to the description and financial dimensions, some users within the organization need to capture extra details like document numbers,
+                                 payment recipient names, vehicle numbers, and transaction references etc.. when posting journals or invoices....</p>
+                             <a href="https://www.linkedin.com/pulse/d365-fogeneral-ledgercoafinancial-tags-sanjo-poly-meujf/?trackingId=bOmu94vVRfasoS3erOgzyA%3D%3D" class="text-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="view-all-container">
+                     <a href="https://www.linkedin.com/in/sanjopoly/recent-activity/articles/" class="cta-button">View All Blogs</a>
+                 </div>
+            </div>
+        </section>
+
+       <!-- <section id="projects" class="section-bg">
+             <div class="container">
+                <h2>Projects</h2>
+                 <div class="project-grid">
+                     <div class="card project-card">
+                         <img src="placeholder-project1.jpg" alt="Project 1 Screenshot">
+                         <div class="card-content">
+                            <h3>Global D365 Finance Implementation</h3>
+                            <p>Led the GL and AP module implementation for a multinational manufacturing company.</p>
+                            <p><strong>Technologies:</strong> D365 Finance, LCS, DMF, Power BI</p>
+                            <p><strong>Role:</strong> Lead Functional Consultant</p>
+                            <a href="#" class="text-link" target="_blank">View Details (Optional) <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="card project-card">
+                        <img src="placeholder-project2.jpg" alt="Project 2 Screenshot">
+                        <div class="card-content">
+                            <h3>Financial Reporting Automation</h3>
+                            <p>Developed automated financial reports using D365's Financial Reporter and Power BI.</p>
+                            <p><strong>Technologies:</strong> D365 Finance, Financial Reporter, Power BI</p>
+                            <p><strong>Role:</strong> Functional Consultant / Analyst</p>
+                         </div>
+                    </div>
+                     </div>
+            </div>
+        </section> -->
+
+        <section id="experience">
+            <div class="container">
+                <h2>Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Finance functional Consultant - D365</h3>
+                            <p class="timeline-details"><em>The solution consulting | 2021 - Present</em></p>
+                            <ul>
+                                <li>Finance Led for implementation projects for various clients.</li>
+                                <li>Provided expert guidance on D365 Finance best practices.</li>
+                                <li>Developed custom solutions and integrations.</li>
+                                <li>Integrations with Banks, Web Pages, HRMS systems..</li>
+                                <li>Power Bi Report development</li>
+                                <li>Verifcation of data using SQL</li>
+                                <li>Managment reporting</li>
+                                <li>ER (Electronic Reporting) Development</li>
+                                <li>Mentored junior consultants.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                         <div class="timeline-content">
+                            <h3>Accountant</h3>
+                            <p class="timeline-details"><em>Summit Maritime Private Limited | 2018 - 2021</em></p>
+                            <ul>
+                                <li><em>Preparation of Accounts: </em>Capture financial transactions in accordance with Ind AS and other accepted
+                                    accounting principles.</li>
+                                <li><em>Analysis of Financial Performance: </em>  Create monthly MIS reports and statements for management, including
+                                    performance ratios and cash flow forecasts.</li>
+                                <li><em>Tax Compliance and Reporting: </em> Ensure accurate calculation and timely payment of taxes and prepare tax
+                                    returns in compliance with Indian tax laws such as GST, TDS, PF, and ESI.</li>
+                                <li><em>Collaboration with Auditors: </em>Provide necessary documents and supporting evidence to auditors, ensuring
+                                    all financial aspects are covered during the audit.</li>
+                                <li><em>Payroll Processing: </em> Prepare and forward salary statements to management for approval and upload the
+                                    approved statements to the WPS portal.</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="timeline-item">
+                         <div class="timeline-content">
+                            <h3>Audit Assistant</h3>
+                            <p class="timeline-details"><em>Chaly and Co. | 2015 - 2017</em></p>
+                             <ul>
+                                <li>Prepare financial statements in accordance with the Companies Act</li>
+                                <li>Identify any auditor's risks and address them promptly.</li>
+                                <li>Account for transactions, including vouching.</li>
+                                <li>Reconcile statements and accounts to ensure accuracy.</li>
+                                <li>Prepare and submit necessary documents to Income Tax authorities and the Ministry of Corporate Affairs (MCA).</li>
+                                <li>Verify stock values and ensure they are accurately reflected in the financial statements.</li>
+                                <li>Prepare financial projections and cash flow statements for banks and clients.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-bg">
+            <div class="container contact-content">
+                <h2>Contact Me</h2>
+                <p>Ready to discuss how I can help optimize your financial systems? Reach out!</p>
+                <div class="contact-details">
+                     <p><i class="fas fa-envelope"></i> <a href="mailto:j.sanjopoly@gmail.com">j.sanjopoly@gmail.com</a></p>
+                     <p><i class="fas fa-code"></i> <a href="+919947192248">+91 9947192248</a></p>
+                     <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/sanjopoly" target="_blank">https://www.linkedin.com/in/sanjopoly</a></p>
+                    
+                    </div>
+                    <button id="myDownloadButton" class="attractive-button">Download Resume</button>
+                    <p><i>Please get the download code before click on here!</i></p>
+
+<div id="verificationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h4>Enter Verification Code</h4>
+        <input type="text" id="verificationCodeInput" placeholder="Enter code">
+        <button id="verifyCodeButton">Verify and Download</button>
     </div>
+</div>
+
+<script>
+    const downloadButton = document.getElementById('myDownloadButton');
+    const modal = document.getElementById('verificationModal');
+    const closeButton = document.querySelector('.close-button');
+    const verifyButton = document.getElementById('verifyCodeButton');
+    const codeInput = document.getElementById('verificationCodeInput');
+
+    // Replace with your desired verification code
+    const correctCode = "12345"; 
+    const fileUrl = "https://drive.google.com/file/d/14TCTPIOY28ZA953ts1lAormEk39XsfRn/view?usp=drive_link"; // Replace with the actual file URL
+
+    // When the user clicks the button, open the modal
+    downloadButton.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    closeButton.onclick = function() {
+        modal.style.display = "none";
+        codeInput.value = ""; // Clear the input field
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            codeInput.value = ""; // Clear the input field
+        }
+    }
+
+    // When the user clicks the verify button
+    verifyButton.onclick = function() {
+        const enteredCode = codeInput.value;
+
+        if (enteredCode === correctCode) {
+            alert("Code matched! Downloading file...");
+            // Trigger the file download
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = fileUrl.split('/').pop() || 'downloaded_file'; // Suggest filename from URL or use a default
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            modal.style.display = "none"; // Close the modal
+            codeInput.value = ""; // Clear the input field
+        } else {
+            alert("Please contact through mail to get the download code");
+            codeInput.value = ""; // Clear the input field
+        }
+    }
+</script>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sanjo Poly. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
