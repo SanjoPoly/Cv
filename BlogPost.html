@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Bank Statement Reconciliation in D365 F&O</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .blog-content h2 {
+            font-size: 1.75rem; /* text-2xl */
+            font-weight: 600; /* semibold */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 1rem; /* mb-4 */
+            border-bottom: 1px solid #e5e7eb; /* border-b border-gray-200 */
+            padding-bottom: 0.5rem; /* pb-2 */
+        }
+        .blog-content h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* semibold */
+            margin-top: 1.5rem; /* mt-6 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .blog-content p, .blog-content ul, .blog-content ol {
+            margin-bottom: 1rem; /* mb-4 */
+            line-height: 1.6;
+        }
+        .blog-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem; /* ml-6 */
+        }
+        .blog-content ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem; /* ml-6 */
+        }
+        .blog-content code {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            padding: 0.25rem 0.5rem; /* px-2 py-1 */
+            border-radius: 0.25rem; /* rounded */
+            font-family: monospace;
+        }
+        .blog-content pre {
+            background-color: #1f2937; /* bg-gray-800 */
+            color: #e5e7eb; /* text-gray-200 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.375rem; /* rounded-md */
+            overflow-x: auto;
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .blog-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .blog-content img.inline-screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #d1d5db; /* border border-gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            margin-top: 0.5rem; /* mt-2 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc ul li a {
+            text-decoration: none;
+            color: #2563eb; /* text-blue-600 */
+        }
+        .toc ul li a:hover {
+            text-decoration: underline;
+        }
+        .image-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 200px; /* Adjust as needed */
+            background-color: #f9fafb; /* bg-gray-50 */
+            border: 2px dashed #d1d5db; /* border-2 border-dashed border-gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            margin: 1rem 0; /* my-4 */
+            color: #6b7280; /* text-gray-500 */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-normal">
+
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-gray-900">Bank Statement Automatic Reconciliation using Power Automate and SharePoint in D365 Finance and Operations (D365 F&O)</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <article class="bg-white p-6 md:p-8 rounded-lg shadow-lg blog-content">
+
+            <section id="table-of-contents" class="mb-8 p-4 bg-blue-50 rounded-lg toc">
+                <h2 class="text-xl font-semibold text-blue-700 mb-3">Contents</h2>
+                <ul>
+                    <li><a href="#requirements">Requirements</a></li>
+                    <li><a href="#suggested-solution">Suggested solution</a></li>
+                    <li><a href="#prerequisite">Prerequisite</a></li>
+                    <li><a href="#steps">Steps:</a>
+                        <ul>
+                            <li><a href="#step1">1. Complete ER setup for the bank reconciliation</a></li>
+                            <li><a href="#step2">2. Map the Format in the bank module</a></li>
+                            <li><a href="#step3">3. Map the format In the Bank master</a></li>
+                            <li><a href="#step4">4. Connect the SharePoint with D365</a>
+                                <ul>
+                                    <li><a href="#step4a">a. Establish the write and delete access to D365 finance and operation in SharePoint.</a></li>
+                                    <li><a href="#step4b">b. Map the SharePoint in D365</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#step5">5. Create folders in SharePoint</a></li>
+                            <li><a href="#step6">6. Create SharePoint locations in D365</a></li>
+                            <li><a href="#step7">7. Attach the source file to the ER format</a></li>
+                            <li><a href="#step8">8. Create a Bank statement Batch Job</a></li>
+                            <li><a href="#step9">9. Checking the file movements in D365</a></li>
+                            <li><a href="#step10">10. Configure Power Automate to move the files to SharePoint from Email</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="requirements">
+                <h2>Requirements</h2>
+                <p>An automated solution for processing bank statements in Dynamics 365 Finance and Operations (D365 F&O) using Microsoft Power Automate and SharePoint. Below mentioned are the expected flow for the requirement.</p>
+                <ul>
+                    <li>Bank statements will be received via email.</li>
+                    <li>Power Automate will automatically download the attached bank statement from email and drop it into the SharePoint designated location for processing.</li>
+                    <li>D365 F&O will check the SharePoint folder and detect the arrival of new bank statement files.</li>
+                    <li>The system will read and create statement upon detection.</li>
+                    <li>If any errors occur during the file upload process, D365 F&O will move the affected files to a predefined "Error" folder. Users will be able to review this folder to identify and investigate any failures.</li>
+                    <li>Successfully processed files will be moved to a "Completed" folder in the SharePoint for future reference and audit purposes.</li>
+                </ul>
+            </section>
+
+            <section id="suggested-solution">
+                <h2>Suggested solution</h2>
+                <p><em>(The document seems to jump directly into prerequisites and steps after this heading. If there was specific content for "Suggested solution", it should be added here.)</em></p>
+            </section>
+
+            <section id="prerequisite">
+                <h2>Prerequisite</h2>
+                <ul>
+                    <li>Power Automate access and subscription.</li>
+                    <li>SharePoint admin access.</li>
+                    <li>Azure admin access to run the PowerShell command.</li>
+                    <li>Import ER model for the bank reconciliation (Custom or MT940 standard).</li>
+                </ul>
+            </section>
+
+            <section id="steps">
+                <h2>Steps</h2>
+
+                <section id="step1">
+                    <h3>1. Complete ER setup for the bank reconciliation</h3>
+                    <p>Here I am using custom bank statements format in the ER for the reconciliation. Bank not providing MT940 format for this customer.</p>
+                    <div class="image-placeholder">Placeholder for Image: ER Configuration - TSCUpdated Format</div>
+                    <p>Standard reconciliation model extended and added new format mapping for the custom design.</p>
+                </section>
+
+                <section id="step2">
+                    <h3>2. Map the Format in the bank module</h3>
+                    <div class="image-placeholder">Placeholder for Image: Navigation to Bank Statement Format</div>
+                    <div class="image-placeholder">Placeholder for Image: Mapping ER Format to Bank Statement Format (TSCModelMapping)</div>
+                    <p>Map the ER format to the bank statement format in the cash and bank module in D365.</p>
+                </section>
+
+                <section id="step3">
+                    <h3>3. Map the format In the Bank master</h3>
+                    <div class="image-placeholder">Placeholder for Image: Bank Master Reconciliation Setup</div>
+                </section>
+
+                <section id="step4">
+                    <h3>4. Connect the SharePoint with D365</h3>
+                    <section id="step4a">
+                        <h4>a. Establish the write and delete access to D365 finance and operation in SharePoint.</h4>
+                        <p><strong>One time registration process</strong></p>
+                        <p>In Dynamics 365 finance and operations version 10.0.40 and later, when the SharePoint user authentication feature is enabled, your organization needs to perform a one-time setup to use the SharePoint integration for non-interactive batch scenarios. This is because the Microsoft-managed high-trust connection between the finance and operations environment and SharePoint has been deprecated.</p>
+                        <p>With this updated SharePoint authentication mechanism, batch connections utilize application access. As this access is not granted by default for tenants, an Entra ID tenant administrator needs to be manually grant access one time for the tenant. This can be done by running the following PowerShell commands to provide the required application consent for finance and operations batch scenarios to connect to SharePoint.</p>
+                        <p>Run PowerShell as administrator in the local system (any laptops)</p>
+                        <div class="image-placeholder">Placeholder for Image: Running PowerShell as Administrator</div>
+                        <p>Run below codes in PowerShell. Suggested to keep PowerShell latest version, here my version is v7.5.0</p>
+                        <div class="image-placeholder">Placeholder for Image: PowerShell Commands for Graph Connection</div>
+                        <p>My test PowerShell command image</p>
+                        
+                        <p><strong>Install the Microsoft Graph</strong></p>
+                        <p>Select the respective folder in the local machine using PowerShell for the installation of the file and run the below command.</p>
+                        <pre><code class="language-powershell">Install-Module Microsoft.Graph -Scope CurrentUser</code></pre>
+                        
+                        <p><strong>Import the module to run command</strong></p>
+                        <pre><code class="language-powershell">Import-Module Microsoft.Graph.Applications</code></pre>
+
+                        <p><strong>Connect Graph using PowerShell</strong></p>
+                        <pre><code class="language-powershell">Connect-MgGraph -TenantId microsoft.onmicrosoft.com -Scopes 'Application.ReadWrite.All'</code></pre>
+                        <p>*Replace the ‘microsoft.onmicrosoft.com’ with user tenant ID.</p>
+                        <p>Once click the enter button for the above command a browser will open for the authentication.</p>
+                        <div class="image-placeholder">Placeholder for Image: Microsoft Account Picker for Authentication</div>
+                        <p>For the authentication, use the azure portal admin account.</p>
+                        <p>Once connected successfully below message will receive:</p>
+                        <div class="image-placeholder">Placeholder for Image: Successful Microsoft Graph Connection Message</div>
+
+                        <p><strong>Activate service principal</strong></p>
+                        <p>Run below 3 lines of command (copy and paste)</p>
+                        <pre><code class="language-powershell"># These AppIds do not change as they are the first party application IDs
+$erpServicePrincipal = Get-MgServicePrincipal -Filter "AppId eq '00000015-0000-0000-c000-000000000000'"
+$sharePointServicePrincipal = Get-MgServicePrincipal -Filter "AppId eq '00000003-0000-0ff1-ce00-000000000000'"
+$spAppRole = $sharePointServicePrincipal.AppRoles | where {$_.Value -eq 'Sites.ReadWrite.All'}
+
+# Assign the SharePoint 'Sites.ReadWrite.All' permission to the Microsoft Dynamics 365 finance and operations application
+New-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $erpServicePrincipal.Id -PrincipalId $erpServicePrincipal.Id -ResourceId $sharePointServicePrincipal.Id -AppRoleId $spAppRole.Id</code></pre>
+                        <p>“Now the Connect with D365 and SharePoint is established for the delete and update“</p>
+                    </section>
+
+                    <section id="step4b">
+                        <h4>b. Map the SharePoint in D365</h4>
+                        <div class="image-placeholder">Placeholder for Image: Navigation to Document Management Parameters</div>
+                        <div class="image-placeholder">Placeholder for Image: Document Management Parameters - SharePoint Setup</div>
+                        <p>In the default SharePoint server, field mention the SharePoint URL. And click on the Test interactive SharePoint connection and Test batch SharePoint connection.</p>
+                        <p>If the connections are established. Below message will receive.</p>
+                        <div class="image-placeholder">Placeholder for Image: Successful SharePoint Connection Message</div>
+                    </section>
+                </section>
+
+                <section id="step5">
+                    <h3>5. Create folders in SharePoint</h3>
+                    <div class="image-placeholder">Placeholder for Image: SharePoint Folders - Bank Reco, Completed, Error</div>
+                    <p>Created 2 folders inside the Bank Reco folder.</p>
+                    <p>When new bank statement came from the bank through mail, power automate will bring that file to Bank Reco folder in the SharePoint folder, if the file processed successfully, file automatically move to the completed folder. If any error occurs that file will move to the error folder. So, user can easily identify the error files.</p>
+                </section>
+
+                <section id="step6">
+                    <h3>6. Create SharePoint locations in D365</h3>
+                    <p>Here we are mapping the SharePoint folders in D365.</p>
+                    <div class="image-placeholder">Placeholder for Image: Navigation to Document Types</div>
+                    <div class="image-placeholder">Placeholder for Image: Document Types Setup - General Tab</div>
+                    <p>Mention the code for the file in the Type code field. Here I am given as Bank Statement, BS Completed and BS error.</p>
+                    <p>In the Name field mention the name of the file.</p>
+                    <p>In location, Select SharePoint.</p>
+                    <p>Click on the Edit button in the SharePoint address field.</p>
+                    <p>Now it will connect to the SharePoint site mentioned in the 4.b Session.</p>
+                    <div class="image-placeholder">Placeholder for Image: Folder Selection from SharePoint in D365</div>
+                    <p>Here we can see all the folders, sites and forms in the SharePoint folder. Navigate and select the correct folder.</p>
+                    <p>Click Ok</p>
+                    <div class="image-placeholder">Placeholder for Image: SharePoint Address Updated with Document Removal Options</div>
+                    <p>Now the address is updated in the SharePoint address field.</p>
+                    <p>Like the same create all 3 folders: Bank statement, BS Completed, BS Error</p>
+                    <div class="image-placeholder">Placeholder for Image: All Document Types Created (Bank Statement, BS Completed, BS Error)</div>
+                </section>
+
+                <section id="step7">
+                    <h3>7. Attach the source file to the ER format</h3>
+                    <p>Now we are attaching the document type to the ER format. When we run the ER format. It will pick the file from the defined source only.</p>
+                    <div class="image-placeholder">Placeholder for Image: Navigation to Electronic Reporting Source</div>
+                    <div class="image-placeholder">Placeholder for Image: Selecting ER Format in Electronic Reporting Source</div>
+                    <p>Select the ER format from the drop down.</p>
+                    <p>Click on Save button</p>
+                    <div class="image-placeholder">Placeholder for Image: File Source Configuration in ER Source</div>
+                    <p>Click New in the file source area.</p>
+                    <p>In the name field mention the name for the file</p>
+                    <p>In the file name mask, Type the bank statement extension(*.CSV). If the extension is not mentioned here, system will pick all the file types in the folder for the process.</p>
+                    <p>Click on the settings button above the line.</p>
+                    <div class="image-placeholder">Placeholder for Image: Source Settings for SharePoint in ER</div>
+                    <p>Enable the SharePoint toggle.</p>
+                    <p>Select the document types as mentioned above from the drop down.</p>
+                </section>
+
+                <section id="step8">
+                    <h3>8. Create a Bank statement Batch Job</h3>
+                    <div class="image-placeholder">Placeholder for Image: Navigation to Bank Statements</div>
+                    <div class="image-placeholder">Placeholder for Image: Import Statement Option in Bank Statements</div>
+                    <div class="image-placeholder">Placeholder for Image: Import Bank Statements Batch Job Setup</div>
+                </section>
+
+                <section id="step9">
+                    <h3>9. Checking the file movements in D365</h3>
+                    <div class="image-placeholder">Placeholder for Image: Navigation to File States for the Sources</div>
+                    <div class="image-placeholder">Placeholder for Image: File States for the Sources - Initial View</div>
+                    <div class="image-placeholder">Placeholder for Image: File States for the Sources - Imported Status and Logs</div>
+                    <div class="image-placeholder">Placeholder for Image: SharePoint Bank Reco Folder after Processing (reports.xlsx might be an example file)</div>
+                    <div class="image-placeholder">Placeholder for Image: SharePoint Completed Folder with Processed File</div>
+                    <div class="image-placeholder">Placeholder for Image: Bank Statement View in D365 after Import</div>
+                </section>
+
+                <section id="step10">
+                    <h3>10. Configure Power automate to move the files to SharePoint from Email</h3>
+                    <p><em>(The document ends here. Details for this step would be added if available.)</em></p>
+                </section>
+
+            </section>
+        </article>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; <span id="currentYear"></span> Your Company Name. All rights reserved.</p>
+            <p class="text-sm text-gray-400">Blog post generated from Word document.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script to set the current year in the footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
