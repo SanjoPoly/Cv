@@ -185,9 +185,9 @@
                         <p>In Dynamics 365 finance and operations version 10.0.40 and later, when the SharePoint user authentication feature is enabled, your organization needs to perform a one-time setup to use the SharePoint integration for non-interactive batch scenarios. This is because the Microsoft-managed high-trust connection between the finance and operations environment and SharePoint has been deprecated.</p>
                         <p>With this updated SharePoint authentication mechanism, batch connections utilize application access. As this access is not granted by default for tenants, an Entra ID tenant administrator needs to be manually grant access one time for the tenant. This can be done by running the following PowerShell commands to provide the required application consent for finance and operations batch scenarios to connect to SharePoint.</p>
                         <p>Run PowerShell as administrator in the local system (any laptops)</p>
-                        <div class="image-placeholder">Placeholder for Image: Running PowerShell as Administrator</div>
+                        <img src="Images/runningPowershell1.png">
                         <p>Run below codes in PowerShell. Suggested to keep PowerShell latest version, here my version is v7.5.0</p>
-                        <div class="image-placeholder"><img src="Images/runningPowershell1.png"></div>
+                        <img src="Images/Powershell1.png">
                         <p>My test PowerShell command image</p>
                         
                         <p><strong>Install the Microsoft Graph</strong></p>
@@ -311,6 +311,7 @@ New-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $erpServicePrincipal
 
 </body>
 </html>
+
 
 
 
